@@ -5,15 +5,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    puts params.inspect
-    @user = User.new(user_params)
-
-
-    if @user.save
-      puts User.all
-      redirect_to root_path, notice: 'User created!'
+    if User.exists?(:email => user_params[:email])
+      redirect_to '/users/new'
     else
-      render :new
+      @user = User.new(user_params)
+      if @user.save
+        redirect_to root_path, notice: 'User created!'
+      else
+        render :new
+      end
     end
   end
 
@@ -24,7 +24,8 @@ class UsersController < ApplicationController
       :first_name,
       :last_name,
       :email,
-      :password_digest
+      :password,
+      :password_confirmation
     )
   end
 end

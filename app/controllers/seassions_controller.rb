@@ -1,2 +1,0 @@
-class SeassionsController < ApplicationController
-end

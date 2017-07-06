@@ -47,6 +47,14 @@
         <li>
           <!-- <%= link_to 'Categories',  [:admin, :categories] %> -->
         </li>
+        <li>
+          <% if current_user %>
+            Signed in as <%= current_user.first_name %> | <%= link_to 'Logout', '/sessions/session[:user_id]', :method => :delete %>
+          <% else %>
+            <span><%= link_to 'Login', '/sessions/new' %></span>
+            <span><%= link_to 'Signup', '/users/new' %></span>
+          <% end %>
+        </li>
       </ul>
     </div>
   </div>
