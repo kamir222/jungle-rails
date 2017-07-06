@@ -4,9 +4,46 @@
     <h1>Order #<%= @order.id %></h1>
   </header>
 
-  <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
+  <h4>Thank you for your order!</h4>
+  <div class="panel panel-default items">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Quantity / Email</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% total_price = 0 %>
+        <% @line_items.each do |item| %>
+        <tr>
+          <td><%= item.quantity %></td>
+          <td><%= @order.email %></td>
+          <td><%=Product.find_by(id: item.product_id).name%></td>
+          <td><%=Product.find_by(id: item.product_id).description %></td>
+          <td><%=item.total_price_cents.to_f / 100 %></td>
+          <td><%=image_tag Product.find_by(id: item.product_id).image.tiny %></td>
+        </tr>
+          <% total_price +=  item.total_price_cents.to_f / 100%>
+          <% end %>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">
+            TOTAL: <%= total_price %>
+          </th>
+          <th>
+            Email: <%= @order.email %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
   </div>
+
+
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
