@@ -49,22 +49,11 @@ RSpec.describe Product, type: :model do
       product = Product.create({
         name: 'test',
         price: 2.5,
-        quantity: 2,
+        quantity: 2
       })
 
       expect(product.valid?).to be false
     end
-    
+
   end
 end
-
-# it validates :name, presence: true
-# it validates :price, presence: true
-# it validates :quantity, presence: true
-# it validates :category, presence: true
-
-# create_table "categories", force: :cascade do |t|
-#   t.string   "name"
-#   t.datetime "created_at", null: false
-#   t.datetime "updated_at", null: false
-# end
